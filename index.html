@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>내가 밴드 멤버가 된다면? | 밴드부 포지션 추천 테스트</title>
+  <!-- 스타일시트 외부 분리 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 모바일 애플리케이션 프레임 -->
+  <main class="app-container">
+
+    <!-- ============================================================
+         1. 첫 화면 (Home Screen)
+         ============================================================ -->
+    <section id="home-screen" class="screen active">
+      <div class="home-header">
+        <div class="badge-pill">
+          <span>🎸</span> 청춘 & 낭만 밴드부 입부 테스트
+        </div>
+        <h1 class="home-title">
+          내가 <span class="highlight">밴드 멤버</span>가 된다면?
+        </h1>
+        <p class="home-subtitle">
+          사용자의 취향과 성향에 맞게 어울리는 밴드 포지션을 추천해주는 웹 서비스
+        </p>
+      </div>
+
+      <!-- 밴드 무대 비주얼 그래픽 -->
+      <div class="home-visual-box">
+        <div class="band-stage-card">
+          <div class="stage-spotlight"></div>
+          
+          <div class="instruments-group">
+            <!-- 기타 -->
+            <div class="floating-inst inst-guitar" onclick="playBeep(440)">
+              <span class="emoji">🎸</span>
+              <span class="inst-tag">기타</span>
+            </div>
+            <!-- 드럼 -->
+            <div class="floating-inst inst-drum" onclick="playBeep(330)">
+              <span class="emoji">🥁</span>
+              <span class="inst-tag">드럼</span>
+            </div>
+            <!-- 보컬 -->
+            <div class="floating-inst inst-vocal" onclick="playBeep(523)">
+              <span class="emoji">🎤</span>
+              <span class="inst-tag">보컬</span>
+            </div>
+            <!-- 베이스 -->
+            <div class="floating-inst inst-bass" onclick="playBeep(220)">
+              <span class="emoji">🎸</span>
+              <span class="inst-tag">베이스</span>
+            </div>
+            <!-- 건반 -->
+            <div class="floating-inst inst-keyboard" onclick="playBeep(659)">
+              <span class="emoji">🎹</span>
+              <span class="inst-tag">건반</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 포지션 라인업 태그 롤러 -->
+      <div class="positions-ticker">
+        <div class="ticker-chip">🎸 일렉 기타</div>
+        <div class="ticker-chip">🥁 심장 박동 드럼</div>
+        <div class="ticker-chip">🎤 무대의 꽃 보컬</div>
+        <div class="ticker-chip">🎸 묵직한 베이스</div>
+        <div class="ticker-chip">🎹 감성 건반</div>
+      </div>
+
+      <div class="home-footer">
+        <button id="btn-start" class="btn-main-action" onclick="goToInputScreen()">
+          <span>나랑 어울리는 밴드 포지션 찾기!</span>
+          <span>✨</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         2. 입력 화면 (Input Screen: 밴드 선택 & 밸런스 게임 4단계)
+         ============================================================ -->
+    <section id="input-screen" class="screen">
+      <!-- 상단 네비게이션 -->
+      <div class="input-top-nav">
+        <button class="nav-back-button" onclick="goToHomeScreen()" title="처음으로 돌아가기">
+          ←
+        </button>
+        <div class="nav-title">포지션 밸런스 테스트</div>
+        <div class="nav-counter" id="progress-text">0 / 5 선택</div>
+      </div>
+
+      <!-- 상단 진행도 표시 바 -->
+      <div class="progress-container">
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- [질문 1] 좋아하는 밴드 선택 (6개 선택지) -->
+      <div class="quiz-card" id="card-band">
+        <div class="quiz-card-header">
+          <span class="step-badge band-badge">밴드 선택</span>
+          <h2 class="quiz-question-title">1. 가장 좋아하는 밴드의 분위기를 골라주세요!</h2>
+        </div>
+        <div class="band-options-grid" id="band-options">
+          <!-- 1. 데이식스, 루시, 엔플라잉 -->
+          <div class="band-option-card" data-band="청량청춘" onclick="selectBand(this, '청량청춘')">
+            <div class="band-check-mark">✓</div>
+            <div class="band-card-icon">🍀</div>
+            <div class="band-card-names">데이식스, 루시, 엔플라잉</div>
+            <div class="band-card-tag">#청량 #청춘</div>
+          </div>
+          <!-- 2. YB, 실리카겔 -->
+          <div class="band-option-card" data-band="하드록" onclick="selectBand(this, '하드록')">
+            <div class="band-check-mark">✓</div>
+            <div class="band-card-icon">🔥</div>
+            <div class="band-card-names">YB, 실리카겔</div>
+            <div class="band-card-tag">#강렬함 #하드록</div>
+          </div>
+          <!-- 3. 검정치마, 넬 -->
+          <div class="band-option-card" data-band="인디낭만" onclick="selectBand(this, '인디낭만')">
+            <div class="band-check-mark">✓</div>
+            <div class="band-card-icon">🍷</div>
+            <div class="band-card-names">검정치마, 넬</div>
+            <div class="band-card-tag">#인디 #낭만</div>
+          </div>
+          <!-- 4. 10CM, 잔나비 -->
+          <div class="band-option-card" data-band="사랑감성" onclick="selectBand(this, '사랑감성')">
+            <div class="band-check-mark">✓</div>
+            <div class="band-card-icon">💖</div>
+            <div class="band-card-names">10CM, 잔나비</div>
+            <div class="band-card-tag">#사랑 #감성</div>
+          </div>
+          <!-- 5. 노브레인, 크라잉넛 -->
+          <div class="band-option-card" data-band="반항펑크" onclick="selectBand(this, '반항펑크')">
+            <div class="band-check-mark">✓</div>
+            <div class="band-card-icon">⚡</div>
+            <div class="band-card-names">노브레인, 크라잉넛</div>
+            <div class="band-card-tag">#자유 #펑크</div>
+          </div>
+          <!-- 6. 쏜애플, 혁오 -->
+          <div class="band-option-card" data-band="몽환적" onclick="selectBand(this, '몽환적')">
+            <div class="band-check-mark">✓</div>
+            <div class="band-card-icon">☪️</div>
+            <div class="band-card-names">쏜애플, 혁오</div>
+            <div class="band-card-tag">#몽환적 #사이키</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- [밸런스 1단계] 스트레스 해소 -->
+      <div class="quiz-card" id="card-q1">
+        <div class="quiz-card-header">
+          <span class="step-badge">밸런스 1단계</span>
+          <h2 class="quiz-question-title">스트레스를 잔뜩 받은 오늘 하루, 기분 전환 제대로 하는 방법은?</h2>
+        </div>
+        <div class="balance-options-wrap">
+          <button class="balance-option-btn choice-a" onclick="selectBalance(1, 'A', this)">
+            <div class="balance-letter-badge">A</div>
+            <div class="balance-option-text">맘껏 노래 부르고 소리칠 수 있는 코인 노래방으로 고고! 🎤</div>
+            <div class="balance-selected-tag">선택완료 ✨</div>
+          </button>
+          <button class="balance-option-btn choice-b" onclick="selectBalance(1, 'B', this)">
+            <div class="balance-letter-badge">B</div>
+            <div class="balance-option-text">혼자만의 공간에서 조용히 생각 정리하기 🎧</div>
+            <div class="balance-selected-tag">선택완료 ✨</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- [밸런스 2단계] 음악 취향 -->
+      <div class="quiz-card" id="card-q2">
+        <div class="quiz-card-header">
+          <span class="step-badge">밸런스 2단계</span>
+          <h2 class="quiz-question-title">평소 자주 듣는 음악 취향은?</h2>
+        </div>
+        <div class="balance-options-wrap">
+          <button class="balance-option-btn choice-a" onclick="selectBalance(2, 'A', this)">
+            <div class="balance-letter-badge">A</div>
+            <div class="balance-option-text">청량, 댄스, 신나고 시원한 음악! 🌊</div>
+            <div class="balance-selected-tag">선택완료 ✨</div>
+          </button>
+          <button class="balance-option-btn choice-b" onclick="selectBalance(2, 'B', this)">
+            <div class="balance-letter-badge">B</div>
+            <div class="balance-option-text">편안하고 산뜻한, 감성적인 음악 ☕</div>
+            <div class="balance-selected-tag">선택완료 ✨</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- [밸런스 3단계] 인상 깊은 악기 사운드 -->
+      <div class="quiz-card" id="card-q3">
+        <div class="quiz-card-header">
+          <span class="step-badge">밸런스 3단계</span>
+          <h2 class="quiz-question-title">밴드 음악을 듣는다면 어떤 악기 소리가 가장 인상깊어?</h2>
+        </div>
+        <div class="balance-options-wrap">
+          <button class="balance-option-btn choice-a" onclick="selectBalance(3, 'A', this)">
+            <div class="balance-letter-badge">A</div>
+            <div class="balance-option-text">좡좡좡-! 쿵쿵쿵-! 신나고 강렬한 사운드! ⚡</div>
+            <div class="balance-selected-tag">선택완료 ✨</div>
+          </button>
+          <button class="balance-option-btn choice-b" onclick="selectBalance(3, 'B', this)">
+            <div class="balance-letter-badge">B</div>
+            <div class="balance-option-text">둥둥- 또로롱- 깊고 잔잔한 사운드! 🎶</div>
+            <div class="balance-selected-tag">선택완료 ✨</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- [밸런스 4단계] 사람들과 있을 때 모습 -->
+      <div class="quiz-card" id="card-q4">
+        <div class="quiz-card-header">
+          <span class="step-badge">밸런스 4단계</span>
+          <h2 class="quiz-question-title">평소 사람들과 있을 때 내 모습은?</h2>
+        </div>
+        <div class="balance-options-wrap">
+          <button class="balance-option-btn choice-a" onclick="selectBalance(4, 'A', this)">
+            <div class="balance-letter-badge">A</div>
+            <div class="balance-option-text">모두 나를 봐! 사람들을 이끄는 분위기 메이커! 👑</div>
+            <div class="balance-selected-tag">선택완료 ✨</div>
+          </button>
+          <button class="balance-option-btn choice-b" onclick="selectBalance(4, 'B', this)">
+            <div class="balance-letter-badge">B</div>
+            <div class="balance-option-text">옆에서 세심하게 사람들을 챙기고 조율하는 정리왕! 🤝</div>
+            <div class="balance-selected-tag">선택완료 ✨</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 결과 확인 버튼 -->
+      <div class="mt-4">
+        <button id="btn-submit" class="btn-main-action" onclick="handleSubmit()">
+          <span>나는 어떤 포지션🤔?</span>
+          <span>🎸</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3. 분석 로딩 화면 (Loading Screen)
+         ============================================================ -->
+    <section id="loading-screen" class="screen">
+      <div class="loader-card">
+        <div class="loader-equalizer">
+          <div class="equalizer-bar"></div>
+          <div class="equalizer-bar"></div>
+          <div class="equalizer-bar"></div>
+          <div class="equalizer-bar"></div>
+          <div class="equalizer-bar"></div>
+        </div>
+        <h3 class="loader-title" id="loading-status-text">악기 조율 중... 🎛️</h3>
+        <p class="loader-desc">
+          당신의 음악적 취향과 밸런스 성향을 분석하여<br>
+          가장 빛나는 밴드부 포지션을 찾고 있어요!
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4. 결과 화면 (Result Screen)
+         ============================================================ -->
+    <section id="result-screen" class="screen">
+      <!-- 헤더 -->
+      <div class="result-header-wrap">
+        <div class="result-sub-badge">
+          <span>✨</span> 포지션 판독 완료
+        </div>
+        <!-- 추천 밴드 포지션 메인 타이틀 (멘트와 이모티콘) -->
+        <h1 class="result-hero-title" id="result-hero-title">
+          <span id="result-phrase">🍀청량하게 청춘을 울리는 기타😎</span>
+        </h1>
+      </div>
+
+      <!-- 포지션 메인 비주얼 카드 -->
+      <div class="position-main-card" id="position-main-card">
+        <div class="position-card-glow" id="position-card-glow"></div>
+        
+        <div class="position-art-box" id="position-art-box">
+          <span class="position-art-emoji" id="position-art-emoji">🎸</span>
+        </div>
+
+        <h2 class="position-role-name" id="position-role-name">기타 (Guitar)</h2>
+        
+        <div class="position-keywords-row" id="position-keywords">
+          <span class="position-pill-tag">#멜로디의_중심</span>
+          <span class="position-pill-tag">#무대장악력</span>
+          <span class="position-pill-tag">#사운드_메이커</span>
+        </div>
+      </div>
+
+      <!-- 추천 이유 섹션 -->
+      <div class="result-section-card">
+        <div class="section-card-heading">
+          <span>💡</span> 왜 이 포지션이 찰떡일까요?
+        </div>
+        <div class="recommend-quote-box">
+          <p class="recommend-quote-text" id="recommend-reason-text">
+            당신은 청량하게 청춘을 울리는 기타 포지션이 어울립니다! 시원한 기타 사운드와 적극적인 무대 서비스로 관객들을 사로잡는 모습이 매력적입니다!🌊
+          </p>
+        </div>
+        <p class="recommend-detail-desc" id="recommend-detail-desc">
+          좋아하는 밴드의 청량한 분위기와 당신의 밸런스 선택이 완벽한 시너지를 이룹니다. 무대 위에서 자신만의 사운드로 청춘의 한 페이지를 화려하게 장식해보세요!
+        </p>
+      </div>
+
+      <!-- 추천한 포지션과 잘 맞는 궁합의 포지션 추천 -->
+      <div class="result-section-card">
+        <div class="section-card-heading">
+          <span>🤝</span> 환상의 하모니! 찰떡궁합 포지션
+        </div>
+        <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 8px;">
+          함께 합주할 때 최고의 호흡을 자랑하는 파트너들이에요!
+        </p>
+        <div class="chemistry-grid" id="chemistry-grid">
+          <!-- JS로 동적 생성됨 (예: 기타 -> 보컬, 건반) -->
+        </div>
+      </div>
+
+      <!-- 사용자의 선택 요약 분석 -->
+      <div class="result-section-card">
+        <div class="section-card-heading">
+          <span>📊</span> 나의 밴드 DNA 성향표
+        </div>
+        <div class="traits-list">
+          <div class="trait-item">
+            <span class="trait-label">선택한 밴드 감성</span>
+            <span class="trait-value" id="trait-band">청량, 청춘 (데이식스 등)</span>
+          </div>
+          <div class="trait-item">
+            <span class="trait-label">스트레스 해소법</span>
+            <span class="trait-value" id="trait-q1">에너지 분출형 (코인노래방)</span>
+          </div>
+          <div class="trait-item">
+            <span class="trait-label">음악 선호</span>
+            <span class="trait-value" id="trait-q2">청량 & 신나는 음악</span>
+          </div>
+          <div class="trait-item">
+            <span class="trait-label">선호 사운드</span>
+            <span class="trait-value" id="trait-q3">강렬한 록 사운드</span>
+          </div>
+          <div class="trait-item">
+            <span class="trait-label">팀 내 캐릭터</span>
+            <span class="trait-value" id="trait-q4">분위기 메이커</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 액션 버튼 -->
+      <div class="result-buttons-wrap">
+        <button class="btn-main-action" onclick="resetAndRestart()">
+          <span>밸런스 게임 다시 하기</span>
+          <span>🔄</span>
+        </button>
+        <button class="btn-secondary-action" onclick="copyResultShare()">
+          <span>결과 텍스트 복사하여 공유하기</span>
+          <span>📋</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 하단 토스트 알림창 -->
+    <div id="toast-notice" class="toast-notice">
+      <span id="toast-icon">⚠️</span>
+      <span id="toast-message">항목을 선택해주세요!</span>
+    </div>
+
+  </main>
+
+  <!-- 자바스크립트 외부 분리 연결 -->
+  <script src="app.js"></script>
+</body>
+</html>
